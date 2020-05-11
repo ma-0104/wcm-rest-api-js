@@ -1,6 +1,11 @@
 (function() {
 	window.WCMRestAPI = class WCMRestAPI {
 
+		constructor( virtualPortal ) {
+			this.virtualPortal = virtualPortal ? `${virtualPortal}/` : "";
+			this.wcmRestContext = `/wps/contenthandler/${this.virtualPortal}!ut/p/wcmrest/`;
+		}
+
 		static makeAjaxCall( params ) {
 			const requestParams = {
 				method: params.method || "GET",
