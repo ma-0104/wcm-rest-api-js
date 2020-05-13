@@ -4,19 +4,58 @@
   "description": "A Javascript library to work with WCM REST API operations",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "prepublish": "npm run custom-scripts && npm run build",
+    "prettier": "prettier \"src/**/*.+(js|json)\"",
+    "format": "npm run prettier -- --write",
+    "lint": "eslint src/",
+    "test": "jest",
+    "test:coverage": "jest --collect-coverage",
+    "test:report": "npm run test:coverage && live-server coverage/lcov-report --entry-file=index.html",
+    "docs:build": "jsdoc src -r -d docs",
+    "docs": "npm run docs:build && live-server docs --entry-file=index.html"
   },
-  "author": "Miguel Rosales",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ma-0104/wcm-rest-api-js.git"
+  },
+  "homepage": "https://github.com/ma-0104/wcm-rest-api-js#readme",
+  "keywords": [
+    "ibm-wcm",
+    "wcm"
+  ],
+  "author": {
+    "name": "Miguel Rolsales",
+    "email": "mike_quiroga41@hotmail.com"
+  },
   "license": "UNLICENSED",
+  "contributors": [
+    {
+      "name": "Alejandro Serrano",
+      "email": "alexserrano63@gmail.com"
+    }
+  ],
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.1.0",
-    "babel-preset-es2015": "^6.24.1",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "eslint": "^5.16.0",
+    "jest": "^24.7.1",
+    "babel-jest": "^24.7.1",
+    "jsdoc": "~3.5.5",
+    "prettier": "^1.16.4",
+    "rollup": "^1.7.4",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-buble": "^0.19.6",
+    "rollup-plugin-commonjs": "^9.2.2",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-terser": "^4.0.4"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7"
