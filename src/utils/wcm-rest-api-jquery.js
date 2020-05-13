@@ -1,3 +1,9 @@
+class WCMRestAPIJQuery {
+
+}
+export { WCMRestAPIJQuery };
+
+/*
 export const restAPIJQuery = (function( $ ) {
 	var BASE22 = window.BASE22 || {};
 	// Expose object
@@ -22,7 +28,7 @@ export const restAPIJQuery = (function( $ ) {
 			this.authoringTemplateRestricted = false;
 		}
 
-		/**
+		/!**
 		 * Initialize the api with the config given in order to create pieces of content
 		 *
 		 * @param  config   an object that contains all the specifications of the entry object that will be created:
@@ -36,7 +42,7 @@ export const restAPIJQuery = (function( $ ) {
 		 userID : the user uuid to publish the piece of content
 		 projectID : project uuid
 		 projectName : project name
-		 */
+		 *!/
 		WCMRESTAPI.prototype.initForCreation = function( config ) {
 			var deferred = $.Deferred();
 			this.virtualPortal = typeof config.virtualPortal === 'undefined' || config.virtualPortal === '' ? '' : config.virtualPortal + '/';
@@ -93,9 +99,9 @@ export const restAPIJQuery = (function( $ ) {
 			return deferred.promise();
 
 		};
-		/**
+		/!**
 		 * Used to get a copy of the entry object.
-		 */
+		 *!/
 		WCMRESTAPI.prototype.getEntryObject = function() {
 			return $.extend( true, {}, this.entryObject );
 		};
@@ -103,11 +109,11 @@ export const restAPIJQuery = (function( $ ) {
 		WCMRESTAPI.prototype.setEntryObject = function( entry ) {
 			this.entryObject = $.extend( true, {}, entry );
 		};
-		/**
+		/!**
 		 * Set the new content property value by name.
 		 * @param {string} property - The property to set the new value.
 		 * @param {string} value - The value to set.
-		 */
+		 *!/
 		WCMRESTAPI.prototype.setPropertyValueByName = function( property, value ) {
 			switch( property ) {
 				case "name":
@@ -123,11 +129,11 @@ export const restAPIJQuery = (function( $ ) {
 					console.log( 'The property "' + property + '" is not supported yet' );
 			}
 		};
-		/**
+		/!**
 		 * Set the skeleton element value by Name.
 		 * @param {string} name - The element name in the authoring template to set.
 		 * @param {string} value - The value to set.
-		 */
+		 *!/
 
 
 
@@ -154,12 +160,12 @@ export const restAPIJQuery = (function( $ ) {
 			}
 
 		};
-		/**
+		/!**
 		 * Set the value of an element value based in it's type.
 		 * @param {string} element - The element to set the new value.
 		 * @param {string} type - The element type.
 		 * @param {string|object} value - The value to set. String in case of ShortText,Text and RichtText, object in case of optionSelection.
-		 */
+		 *!/
 		WCMRESTAPI.prototype.setElementValueByType = function( element, type, value, extra ) {
 			if( element.data && element.data.hasOwnProperty( 'elementName' ) ) {
 				delete element.data.elementName;
@@ -328,10 +334,10 @@ export const restAPIJQuery = (function( $ ) {
 				}
 			}
 		};
-		/**
+		/!**
 		 * converts all the data that is on the authoringTemplateData object to element list to send it to WCM
 		 * @return  elementList of the piece of content
-		 */
+		 *!/
 		WCMRESTAPI.prototype.convertAuthoringTemplateDataToElementArray = function() {
 			var elementList = [];
 			for( var element in this.authoringTemplateData ) {
@@ -339,12 +345,12 @@ export const restAPIJQuery = (function( $ ) {
 			}
 			return elementList;
 		};
-		/**
+		/!**
 		 * Append an element to the Link object.
 		 * @param  rel     the type of the link element (parent, project, workflow, contentTemplate....)
 		 * @param  uid    the uid of the link element
 		 * @return  element the element added
-		 */
+		 *!/
 		WCMRESTAPI.prototype.updateLinkElement = function( rel, uid ) {
 
 			if( ! uid ) return;
@@ -370,14 +376,14 @@ export const restAPIJQuery = (function( $ ) {
 			this.entryObject.entry.link.push( element );
 			return element;
 		};
-		/**
+		/!**
 		 * create the JSON object to be sent to wcm
 		 *
 		 * @param  name     the name that the piece of content will have
 		 * @param  arrayElements  array that contains all the elements for the wcm
 		 * @param  customID  customId if they want the unique name to have that customID
 		 * @return the jsonEntry for the wcm
-		 */
+		 *!/
 		WCMRESTAPI.prototype.createJSONDataForWCM = function( name, arrayElements, customID ) {
 			this.uniqueName = typeof customID === 'undefined' ? this.formatName( name ) + '-' + this.generateUUID() : customID;
 			var jsonEntry = {
@@ -421,11 +427,11 @@ export const restAPIJQuery = (function( $ ) {
 
 			return jsonEntry
 		};
-		/**
+		/!**
 		 * concatenate and calculate four random numbers for the uuid
 		 *
 		 * @return random and "unique" uuid
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateUUID = function() {
 			function s4() {
 				return Math.floor( (1 + Math.random()) * 0x10000 ).toString( 16 ).substring( 1 );
@@ -433,30 +439,30 @@ export const restAPIJQuery = (function( $ ) {
 
 			return s4() + s4() + "-" + s4() + "-" + s4();
 		};
-		/**
+		/!**
 		 * concatenate and calculate four random numbers for the uuid
 		 *
 		 * @param name the name given to the piece of content
 		 * @return the name replacing all empty spaces and removing all non alpha numeric characters
-		 */
+		 *!/
 		WCMRESTAPI.prototype.formatName = function( name ) {
 			return name.replace( /\s/g, '-' ).replace( /[^0-9a-zA-Z\-]/g, '' ).toLowerCase();
 		};
-		/**
+		/!**
 		 * generate workflow href
 		 *
 		 * @return the workflow href
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateWorkflowHref = function() {
 			return this.wcmRestPath + 'item/' + this.workflowID;
 		};
-		/**
+		/!**
 		 * push all the categories uuid the the categories array with the full path of the categorie
 		 *
 		 * @return the categories array
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateCategoriesArray = function() {
 			var categoriesArray = [];
 			var length = this.categoriesIDArray.length;
@@ -466,7 +472,7 @@ export const restAPIJQuery = (function( $ ) {
 			return categoriesArray;
 		};
 		//TODO need to check this method to function properly
-		/**
+		/!**
 		 * create the object of the links element
 		 *
 		 * @param propertyName the name of this element
@@ -474,7 +480,7 @@ export const restAPIJQuery = (function( $ ) {
 		 * @param title the tile por the element
 		 * @return the link object for wcm
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateLinkElementForWCM = function( propertyName, destination, title ) {
 			return {
 				"name": propertyName,
@@ -483,7 +489,7 @@ export const restAPIJQuery = (function( $ ) {
 				"data": {
 					"type": "application/vnd.ibm.wcm+xml",
 					"linkElement": {
-						/*"destination" :
+						/!*"destination" :
 						{
 						   "type" : "content",
 						   "allowClear" : false,
@@ -500,12 +506,12 @@ export const restAPIJQuery = (function( $ ) {
 						   "value" : destination
 						},
 						"target" : "None",
-						"additionalAttributes" : ""*/
+						"additionalAttributes" : ""*!/
 					}
 				}
 			};
 		};
-		/**
+		/!**
 		 * create the object for file element
 		 *
 		 * @param propertyName the name of this element
@@ -516,7 +522,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return the file element object for wcm
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateFileElementForWCM = function( propertyName, base64value, title, fileName, fileType ) {
 			var data = {
 				"name": propertyName,
@@ -537,7 +543,7 @@ export const restAPIJQuery = (function( $ ) {
 
 			return data;
 		};
-		/**
+		/!**
 		 * create the object for Image element
 		 *
 		 * @param propertyName the name of this element
@@ -548,7 +554,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return the file element object for wcm
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateImageElementForWCM = function( propertyName, base64value, title, imageType, imageName ) {
 			var data = {
 				"name": propertyName,
@@ -573,7 +579,7 @@ export const restAPIJQuery = (function( $ ) {
 
 			return data;
 		};
-		/**
+		/!**
 		 * create the object for short text element
 		 *
 		 * @param propertyName the name of this element
@@ -584,7 +590,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return the file element object for wcm
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateShortTextElementForWCM = function( propertyName, value, title, update, textComponent ) {
 			var type = typeof textComponent !== 'undefined' && textComponent ? "TextComponent" : "ShortTextComponent";
 			var object = {
@@ -607,7 +613,7 @@ export const restAPIJQuery = (function( $ ) {
 
 			return object;
 		};
-		/**
+		/!**
 		 * create the object for rich text element
 		 *
 		 * @param propertyName the name of this element
@@ -616,7 +622,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return the file element object for wcm
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateRichTextElementForWCM = function( propertyName, value, title ) {
 			return {
 				"name": propertyName,
@@ -628,7 +634,7 @@ export const restAPIJQuery = (function( $ ) {
 				}
 			}
 		};
-		/**
+		/!**
 		 * create the object for date element
 		 *
 		 * @param propertyName the name of this element
@@ -637,7 +643,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return the file element object for wcm
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateDateElementForWCM = function( propertyName, value, title ) {
 			return {
 				"name": propertyName,
@@ -652,7 +658,7 @@ export const restAPIJQuery = (function( $ ) {
 				}
 			}
 		};
-		/**
+		/!**
 		 * create the object for option selection element
 		 *
 		 * @param propertyName the name of this element
@@ -663,7 +669,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return the file element object for wcm
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateOptionElementForWCM = function( propertyName, title, options, multiSelect ) {
 			var optionMode = multiSelect === true ? "Multiselect" : "Singleselect";
 			var options = $.map( options, function( node ) {
@@ -691,7 +697,7 @@ export const restAPIJQuery = (function( $ ) {
 				}
 			}
 		};
-		/**
+		/!**
 		 * create the object for file element
 		 *
 		 * @param propertyName the name of this element
@@ -700,7 +706,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return the reference element object for wcm
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateReferenceElementForWCM = function( propertyName, title, uid ) {
 			return {
 				"name": propertyName,
@@ -712,7 +718,7 @@ export const restAPIJQuery = (function( $ ) {
 				}
 			};
 		};
-		/**
+		/!**
 		 * send all the data to the wcm through the rest api
 		 *
 		 * @param firstRoundData the data that will be send in the first piece of content skeleton to the wcm
@@ -728,15 +734,15 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return a promise that all the content will be created and updated in the correct way
 		 *
-		 */
-		/**
+		 *!/
+		/!**
 		 * Move an item to the next stage.
 		 *
 		 * @param pieceOfContentUuid the uuid of the piece of content created
 		 *
 		 * @return a promise that the piece of content was changed
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.moveToTheNextStage = function( pieceOfContentUuid, comment ) {
 			var defered = $.Deferred();
 			var url = "Item/" + pieceOfContentUuid + "/next-stage";
@@ -815,25 +821,25 @@ export const restAPIJQuery = (function( $ ) {
 			return defered.promise();
 		};
 
-		/**
+		/!**
 		 * send all the data for updating the piece of content(files and images mainly)
 		 *
 		 * @param data the data that will be piped to the next defered then instead of the data of the last deferred object
 		 *
 		 * @return a function with the injected data
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.pipeData = function( data ) {
 			return function( obj ) {
 				return $.Deferred().resolve( data ).promise();
 			}
 		};
-		/**
+		/!**
 		 * Ajax call to create de new piece of content.
 		 *
 		 * @return a promise that the data was sent
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.createPieceOfContent = function() {
 			return this.sendData( 'application/json', JSON.stringify( this.entryObject ), 'Content', 'POST' );
 		};
@@ -852,7 +858,7 @@ export const restAPIJQuery = (function( $ ) {
 		WCMRESTAPI.prototype.setElementsArray = function( elements ) {
 			this.entryObject.entry.content.elements.element = $.extend( true, [], elements );
 		};
-		/**
+		/!**
 		 * create an ajax call that will send data to the wcm rest api
 		 *
 		 * @param contentType the type of content that will be send to the rest api
@@ -862,7 +868,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return a promise that the data was sent
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.sendData = function( contentType, data, url, method ) {
 			return $.ajax( {
 				"headers": {
@@ -897,12 +903,12 @@ export const restAPIJQuery = (function( $ ) {
 				"data": data
 			} );
 		};
-		/**
+		/!**
 		 * put in the owners array the id of the distinguished names
 		 *
 		 * @return a owners array
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.generateOwnerArray = function() {
 			var ownersArray = [];
 			var length = this.approverDistinguishedName.length;
@@ -914,13 +920,13 @@ export const restAPIJQuery = (function( $ ) {
 			}
 			return ownersArray;
 		};
-		/**
+		/!**
 		 * create the function that request all the data of the authoring template
 		 * @param authoringTemplateUuid the uuid of the authoring template
 		 *
 		 * @return a promise that will request all the data of the authoring template
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.getDataFromAuthoringTemplate = function( authoringTemplateUuid ) {
 			var url = "ContentTemplate/" + authoringTemplateUuid + "/new-content";
 			var deferred = $.Deferred();
@@ -948,11 +954,11 @@ export const restAPIJQuery = (function( $ ) {
 		WCMRESTAPI.prototype.getDataFromPieceOfContent = function( pieceOfContentUID ) {
 			return this.getDataFromItem( pieceOfContentUID, "Content" );
 		};
-		/**
+		/!**
 		 * create the function that request all the data of the authoring template
 		 * @param {elementsFromAuthoringTemplate} the list of elements that the authorign template has with their corresponding default values
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.processDataFromAuthoringTemplate = function( elementsFromAuthoringTemplate ) {
 			for( element in elementsFromAuthoringTemplate.element ) {
 				switch( elementsFromAuthoringTemplate.element[ element ].type ) {
@@ -983,13 +989,13 @@ export const restAPIJQuery = (function( $ ) {
 				}
 			}
 		};
-		/**
+		/!**
 		 * create the function that request all the data of the authoring template
 		 * @param authoringTemplateUuid the uuid of the authoring template
 		 *
 		 * @return a promise that will request all the data of the authoirng template
 		 *
-		 */
+		 *!/
 		//TODO TO BE DEPRECATED
 		WCMRESTAPI.prototype.getElementsFromAuthoringTemplate = function( authoringTemplateUuid ) {
 			var context = this;
@@ -1004,7 +1010,7 @@ export const restAPIJQuery = (function( $ ) {
 			return deferred.promise();
 		};
 
-		/**
+		/!**
 		 * process the image and convert it to a buferr array
 		 *
 		 * @param {name} the name of the image
@@ -1013,7 +1019,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return a promise that will process the image
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.processImage = function( name, imageNode, fileType ) {
 			var deferred = $.Deferred();
 			if( typeof imageNode !== 'undefined' ) {
@@ -1035,7 +1041,7 @@ export const restAPIJQuery = (function( $ ) {
 			}
 			return deferred.resolve( { "data": null, "name": name } );
 		};
-		/**
+		/!**
 		 * process the file and convert it to base64
 		 *
 		 * @param {name} the name of the file
@@ -1043,7 +1049,7 @@ export const restAPIJQuery = (function( $ ) {
 		 *
 		 * @return a promise that will process the image
 		 *
-		 */
+		 *!/
 		WCMRESTAPI.prototype.processFile = function( name, fileNode ) {
 			var deferred = $.Deferred();
 			if( typeof fileNode !== 'undefined' ) {
@@ -1180,9 +1186,9 @@ export const restAPIJQuery = (function( $ ) {
 
 		};
 		//TODO END: REFACTOR OR DEPRECATE SINCE THERE IS FUNCTIONALITY OUT OF WCM REST API
-		/**
+		/!**
 		 * Retrieve the List of elements from the current entry object
-		 * **/
+		 * **!/
 		//TODO: CREATE THE DOC FOR THIS AND ADD ALL THE TYPES
 		WCMRESTAPI.updateElementFromPieceOfContent = function( pieceOfContentUUID, elementName, elementType, newValue, virtualPortal ) {
 			virtualPortal = typeof virtualPortal !== 'undefined' ? virtualPortal : '';
@@ -1296,8 +1302,8 @@ export const restAPIJQuery = (function( $ ) {
 
 		};
 
-		/* UPDATE SECTION */
-		/* Add New Elements */
+		/!* UPDATE SECTION *!/
+		/!* Add New Elements *!/
 		WCMRESTAPI.prototype.addNewElement = function( elementName, type, title, options ) {
 			var elements = this.entryObject.entry.content.content.elements.element;
 			var newObject;
@@ -1627,5 +1633,6 @@ export const restAPIJQuery = (function( $ ) {
 
 
 })( jQuery );
+*/
 
 

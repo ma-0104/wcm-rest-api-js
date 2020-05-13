@@ -1,3 +1,8 @@
+class WCMRestAPI {
+
+}
+export { WCMRestAPI };
+/*
 export const restAPI = (function() {
 	window.WCMRestAPI = class WCMRestAPI {
 
@@ -29,4 +34,4 @@ export const restAPI = (function() {
 	}
 
 })
-();
+();*/

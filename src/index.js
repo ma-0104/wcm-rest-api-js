@@ -1,4 +1,7 @@
-import restAPIJQuery from "./utils/wcm-rest-api-jquery";
-import restAPI from "./utils/wcm-rest-api";
+import {WCMRestAPIJQuery} from "./utils/wcm-rest-api-jquery";
+import {WCMRestAPI} from "./utils/wcm-rest-api";
 
-export default {restAPIJQuery, restAPI};
+export {
+    WCMRestAPIJQuery,
+    WCMRestAPI
+};
