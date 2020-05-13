@@ -175,3 +175,4 @@ DerivedData
 .idea
 
 # local
+*.zip
