@@ -1,4 +1,4 @@
-(function() {
+export const restAPI = (function() {
 	window.WCMRestAPI = class WCMRestAPI {
 
 		constructor( virtualPortal ) {

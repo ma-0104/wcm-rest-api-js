@@ -1,4 +1,4 @@
-(function( $ ) {
+export const restAPIJQuery = (function( $ ) {
 	var BASE22 = window.BASE22 || {};
 	// Expose object
 	if( typeof window.BASE22 === 'undefined' ) {
@@ -1627,3 +1627,5 @@
 
 
 })( jQuery );
+
+
