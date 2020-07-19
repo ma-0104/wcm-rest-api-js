@@ -12,4 +12,12 @@ export class Utils {
         if (deepClone) return rfdc()(entryObject);
         return Object.assign({}, entryObject);
     };
+
+    /**
+     * @method isEmpty
+     * @param {object} object
+     */
+    static isEmpty(object) {
+        return !!object && !Object.keys(object).length;
+    }
 }
