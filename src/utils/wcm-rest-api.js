@@ -55,9 +55,8 @@ class WCMRestAPI {
      */
     _setCreationConfig(config) {
         let hasProject = config.hasOwnProperty('projectName');
-
         this.virtualPortal = typeof config.virtualPortal === 'undefined' || config.virtualPortal === '' ? '' : config.virtualPortal + '/';
-        this.wcmRestPath = hasProject ? "/wps/contenthandler/" + this.virtualPortal + "!ut/p/wcmrest/" : "/wps/contenthandler/" + this.virtualPortal + "$project/" + config['projectName'] + "/!ut/p/wcmrest/";
+        this.wcmRestPath = hasProject ? "/wps/contenthandler/" + this.virtualPortal + "$project/" + config['projectName'] + "/!ut/p/wcmrest/" : "/wps/contenthandler/" + this.virtualPortal + "!ut/p/wcmrest/";
         this.contentTemplateID = typeof config.contentTemplateID !== 'undefined' ? config.contentTemplateID : null;
         this.parentID = typeof config.parentID !== 'undefined' ? config.parentID : null;
         this.workflowID = typeof config.workflowID !== 'undefined' ? config.workflowID : null;
@@ -73,17 +72,19 @@ class WCMRestAPI {
                 return reject('In order to create a new piece of content you must specify a Content Template');
             }
 
-            return this.getDataFromAuthoringTemplate(this.contentTemplateID).then((response) => {
-                this.entryObject = Utils.cloneObject(response, true);
+            return this.getDataFromAuthoringTemplate(this.contentTemplateID)
+                .then((response) => {
+                    this.entryObject = Utils.cloneObject(response, true);
 
-                this.updateLinkElement('parent', this.parentID);
-                this.updateLinkElement('workflow', this.workflowID);
-                this.updateLinkElement('project', this.projectID);
+                    this.updateLinkElement('parent', this.parentID);
+                    this.updateLinkElement('workflow', this.workflowID);
+                    this.updateLinkElement('project', this.projectID);
 
-                return resolve(response);
-            }).catch((error) => {
-                return reject(error);
-            });
+                    return resolve(response);
+                })
+                .catch((error) => {
+                    return reject(error);
+                });
         });
     }
 
@@ -972,7 +973,9 @@ class WCMRestAPI {
         return new Promise((resolve, reject) => {
             this.getDataFromAuthoringTemplate(authoringTemplateUuid)
                 .then((data) => {
-                    this.processDataFromAuthoringTemplate(data.entry.content.content.elements);
+                    if (data.hasOwnProperty('entry')) {
+                        this.processDataFromAuthoringTemplate(data.entry.content.content.elements);
+                    }
                     resolve(data);
                 })
                 .catch((msg) => {
